@@ -1,0 +1,82 @@
+* {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;   
+}
+
+.restart {
+    position: absolute;
+}
+
+.difficulty {
+    position: absolute;
+    top: 120px;
+}
+
+.letter {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 20px;
+    display: grid;
+    align-content: center;
+}
+
+.word {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+
+    &s {
+        width: 50vw;
+        display: grid;
+        row-gap: 20px;
+        align-content: flex-start;
+    }
+}
+
+.field {
+    display: grid;
+    justify-content: center;
+    padding-top: 10vh;
+    grid-template-rows: 65vh auto;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.black {
+    background-color: gray;
+}
+
+.keyboard {
+    display: grid;
+    grid-auto-flow: row;
+    font-size: 25px;
+    row-gap: 20px;
+
+    &-line {
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: center;
+        column-gap: 10px;
+    }
+}
+
+.key {
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 4px;
+    text-align: center;
+    display: grid;
+    align-content: center;
+}
