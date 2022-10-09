@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface KeyProps {
     letter: string;
@@ -7,8 +7,17 @@ interface KeyProps {
 }
 
 const Key: React.FC<KeyProps> = ({letter, status, func}) => {
+
+    const [isPressed, setIsPressed] = useState<boolean>(false);
+
     return (
-        <div className={"key " + status} onClick={func ? () => func(letter): () => {}} >
+        <div
+            className={"key " + status + ((isPressed) ? ' pressed': '')} 
+            id={letter === '\u2714'? 'enter': ''} 
+            onClick={func ? () => func(letter): () => {}}
+            onMouseDown={() => setIsPressed(true)}
+            onMouseUp={() => setIsPressed(false)}
+        >
             {letter}
         </div>
     );

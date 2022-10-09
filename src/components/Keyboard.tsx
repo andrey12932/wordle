@@ -49,7 +49,7 @@ const Keyboard: React.FC<KeyboardProps> = ({add, remove, confirm}) => {
                 <Key letter='Д' status={color('Д')} func={add}/>
                 <Key letter='Ж' status={color('Ж')} func={add}/>
                 <Key letter='Э' status={color('Э')} func={add}/>
-                <Key letter={'\u2190'} status={'yellow'} func={remove}/>
+                <Key letter={'\u2190'} func={remove}/>
             </div>
             <div className="keyboard-line">
                 <Key letter='Я' status={color('Я')} func={add}/>
