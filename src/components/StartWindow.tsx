@@ -14,11 +14,11 @@ const StartWindow: React.FC<StartWindowProps> = ({header, body, comp, hide}) => 
                 {header}
             </h2>
             <div className="modal-body">
-                { header !== "Настройки" && body}
+                { body && <span>{ header !== "Настройки" && body}</span>}
                 {comp}
             </div>
             {header !== "Настройки" || <div className="modal__close" onClick={() => hide(true)}>
-                Закрыть
+                X
             </div>}
         </div>
     );

@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap');
 
-$maincolor: rgb(1, 88, 16);
-$secondcolor: rgb(184, 255, 202);
-$bgcol: rgb(255, 255, 242);
-$headerbgcolor: rgb(179, 204, 165);
+$maincolor: #015810;
+$secondcolor: rgb(168, 201, 177);
+$bgcol: #fffff2;
+$headerbgcolor: #b3cca5;
 $maxwidth: 530px;
+$randCol: #b3b7ce;
+$yellow: #EBE196;
+$gray: #bbb;
 
 * {
     -webkit-touch-callout: none; /* iOS Safari */
@@ -47,12 +50,17 @@ $maxwidth: 530px;
                 background-color: $bgcol;
             }
         }
+
+        &__info {
+            transform: rotateY(180deg);
+        }
     }
 
     &-content {
         display: grid;
         grid-auto-flow: column;
         justify-content: space-between;
+        grid-template-columns: auto 170px;
     }
 
     &-title {
@@ -63,9 +71,9 @@ $maxwidth: 530px;
 
 .modal {
     position: fixed;
-    background-color: $secondcolor;
-    // width: 80vw;
-    // height: 80vh;
+    background-color: $headerbgcolor;
+    width: 20vw;
+    height: 33vh;
     padding: 40px;
     z-index: 10;
     display: grid;
@@ -76,6 +84,54 @@ $maxwidth: 530px;
     left: 50%;
     transform: translate(-50%, -50%);
     row-gap: 20px;
+    //grid-template-rows: repeat(3, auto);
+
+    &-body {
+        height: 100%;
+    }
+
+    & .restart{
+        width: 120px;
+        height: 30px;
+        border-radius: 5px;
+        justify-self: center;
+        color: $maincolor;
+        font-weight: 600;
+        border: 2px solid $maincolor;
+        background-color: $bgcol;
+        letter-spacing: 3px;
+    }
+
+    &-body {
+        display: grid;
+        justify-content: center;
+        row-gap: 20px;
+        align-items: flex-start;
+    }
+
+    & .difficulty {
+        display: grid;
+        justify-content: center;
+        margin-top: 25px;
+        text-align: center;
+        
+    }
+
+    & span {
+        font-size: 18px;
+    }
+
+    &__close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    &-header {
+        text-align: center;
+    }
 }
 
 body {
@@ -91,6 +147,28 @@ body {
     position: relative;
 }
 
+@mixin rotation($col) {
+    @keyframes #{$col} {
+        0% {
+            background-color: transparent;
+            transform: perspective(500px) rotateY(0deg);
+        }
+
+        50% {
+            transform: perspective(500px) rotateY(90deg);
+        }
+
+        100% {
+            background-color: $col;
+            transform: perspective(500px) rotateY(0deg);
+        }
+    }
+}
+
+@mixin animate($animation,$duration,$method,$times){
+    animation: $animation $duration $method $times;
+}
+
 .letter {
     width: 60px;
     height: 60px;
@@ -99,6 +177,27 @@ body {
     font-size: 40px;
     display: grid;
     align-content: center;
+    transition: 1s;
+    animation-duration: 3s;
+    border-radius: 5px;
+
+    &.yellow {
+        transform: perspective(500px) rotateY(360deg);
+        @include rotation(yellow);
+        @include animate(yellow, 0.75s, linear, 1);
+    }
+
+    &.green {
+        transform: perspective(500px) rotateY(360deg);
+        @include rotation(green);
+        @include animate(green, 0.75s, linear, 1);
+    }
+
+    &.black {
+        transform: perspective(500px) rotateY(360deg);
+        @include rotation(gray);
+        @include animate(gray, 0.75s, linear, 1);
+    }
 }
 
 .word {
@@ -123,15 +222,20 @@ body {
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: $yellow;
 }
 
 .green {
-    background-color: green;
+    background-color: $headerbgcolor;
 }
 
 .black {
-    background-color: gray;
+    background-color: $gray;
+}
+
+#enter {
+    background-color: $headerbgcolor;
+    text-shadow: 1px 1px 0px #000;
 }
 
 .keyboard {
@@ -168,4 +272,19 @@ body {
     &.pressed {
         background-color: gray;
     }
+}
+
+.square {
+    height: 30px;
+    width: 30px;
+    border: 1px solid $maincolor;
+    border-radius: 4px;
+}
+
+.boxes {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    row-gap: 20px;
+    align-items: center;
+    column-gap: 10px;
 }
