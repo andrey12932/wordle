@@ -45,6 +45,10 @@ const GameField = () => {
             losing();
     });
 
+    useEffect(() => {
+        info();
+    }, []);
+
     function keyPressHandler(e: KeyboardEvent) {
         if (/Key|Period|Comma|Quote|Semicolon|BracketLeft|BracketRight/.test(e.code) && e.key !== 'Enter' && guess.length < 5) {
             addLetter(engToRu(e.key));
@@ -78,6 +82,7 @@ const GameField = () => {
         setWordsArr([]);
         /*logic.generateWord(difficulty);*/
         hideModal(false);
+        setModalComp(diffComp);
     }
 
     function addLetter(letter: string): void {
@@ -96,6 +101,7 @@ const GameField = () => {
             setWin(true)
             setModalText('Победа!');
             setTrynum(0)
+            setModalComp(diffComp);
         } else if (logic.isExisting(guess.toLocaleLowerCase())) {
             setWordsArr(wordsArr.concat([guess]));
             setGuess('');
