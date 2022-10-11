@@ -8,23 +8,6 @@ const GameField = () => {
     const [button, setButton] = useState<string>('НАЧАТЬ');
     const [difficulty, setDifficulty] = useState<number>(1);
 
-    const inform = <>
-        <div className="boxes">
-            <div className="square green"></div><span className="square__text">  - буква на верном месте</span>
-            <div className="square yellow"></div><span className="square__text">  - буква есть в слове</span>
-            <div className="square black"></div><span className="square__text">  - буквы нет в слове</span>
-        </div>
-        <button className="restart" onClick={handleNewWord}>{button}</button>
-    </>
-
-    const diffComp = <>
-        <div className="difficulty">
-            Сложность: {difficulty} <br />
-            <input type="range" name="dif" id="dif" max={4} min={1} value={difficulty} onChange={difficultyChangeHandler} />
-        </div>
-        <button className="restart" onClick={handleNewWord}>{button}</button>
-    </>
-
 
     const [guess, setGuess] = useState<string>('');
     const [wordsArr, setWordsArr] = useState<Array<string>>([]);
@@ -33,16 +16,16 @@ const GameField = () => {
     const [trynum, setTrynum] = useState<number>(0);
     const [modalText, setModalText] = useState<string>('Новая игра');
     const [hasListener, setHasListener] = useState<boolean>(false);
-    const [modalComp, setModalComp] = useState(diffComp);
+    const [isInfo, setIsInfo] = useState<boolean>(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (!showModal && !hasListener) 
             setEventHandler(true);
-        let arr = wordsArr
-        setWin(false);
+        let arr = wordsArr;
         if (arr.length === 6) 
             losing();
+        setWin(false);
     });
 
     useEffect(() => {
@@ -80,9 +63,8 @@ const GameField = () => {
         setModalText('Упс! Вы проиграли');
         setGuess('');
         setWordsArr([]);
-        /*logic.generateWord(difficulty);*/
         hideModal(false);
-        setModalComp(diffComp);
+        setIsInfo(false);
     }
 
     function addLetter(letter: string): void {
@@ -101,7 +83,7 @@ const GameField = () => {
             setWin(true)
             setModalText('Победа!');
             setTrynum(0)
-            setModalComp(diffComp);
+            setIsInfo(false);
         } else if (logic.isExisting(guess.toLocaleLowerCase())) {
             setWordsArr(wordsArr.concat([guess]));
             setGuess('');
@@ -147,13 +129,13 @@ const GameField = () => {
     }
 
     function showSettings() {
-        setModalComp(diffComp);
+        setIsInfo(false);
         hideModal(false);
         setModalText('Еще раз');
     }
 
     function info() {
-        setModalComp(inform);
+        setIsInfo(true);
         hideModal(false);
         setModalText('Как играть');
     }
@@ -174,11 +156,15 @@ const GameField = () => {
                 </div>
             </header>
             <div className='field'>
-                {showModal && <StartWindow 
-                    header={modalText} 
-                    comp={modalComp}
+                {showModal && <StartWindow
+                    diffChange={difficultyChangeHandler} 
+                    header={modalText}
                     hide={hideModal}
                     body={ trynum !== 0 ? 'Загаданое слово: ' + logic.word : undefined}
+                    isInfo={isInfo}
+                    difficulty={difficulty}
+                    button={button}
+                    handleNewWord={handleNewWord}
                 />}
                 
                 <div className='words'>

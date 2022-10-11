@@ -72,6 +72,7 @@ $gray: #bbb;
 .modal {
     position: fixed;
     background-color: $headerbgcolor;
+    min-width: 250px;
     width: 20vw;
     height: 33vh;
     padding: 40px;
@@ -215,6 +216,8 @@ body {
         display: grid;
         row-gap: 20px;
         align-content: flex-start;
+        transition: 0.3s;
+        justify-self: center;
     }
 }
 
@@ -316,4 +319,76 @@ input[type='range'] {
         margin-top: -6px;
       }
 
+}
+
+@media screen and (max-width: 570px) {
+    .words {
+        width: 400px;
+        justify-self: center;
+    }
+
+    .keyboard {
+        &-line {
+            column-gap: 5px;
+        }
+    }
+    .key {
+        min-width: 20px;
+    }
+
+    .header {
+        padding: 0 5px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .key {
+        min-width: 15px;
+    }
+
+    .letter {
+        height: 50px;
+        width: 50px;
+    }
+
+    .words {
+        width: 350px;
+        justify-self: center;
+    }
+
+    .keyboard {
+        font-size: 20px;
+    }
+
+    .header {
+        &-content {    
+            grid-template-columns: 162px 110px;
+        }
+
+        &-buttons {
+            column-gap: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 373px) {
+    .words {
+        width: 300px;
+        justify-self: center;
+    }
+
+    .keyboard {
+        font-size: 15px;
+        &-line {
+            column-gap: 2px;
+        }
+    }
+
+    .modal {
+        min-width: 250px;
+    }
+
+    .header {
+        font-size: 11px;
+    }
 }
